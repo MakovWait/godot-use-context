@@ -9,8 +9,24 @@ var _ctx = _Context.new()
 
 
 func use(node: Node, key):
-	var path_from = str(node.get_path()) 
-	return _ctx.find(path_from, _cast_key(key))
+	var value = use_or_null(node, key)
+	assert(value != null, "Context value was not found")
+	return value
+
+
+func use_or_null(node: Node, key, default=null):
+	var path_from = str(node.get_path())
+	var value = _ctx.find(path_from, _cast_key(key))
+	return value
+
+
+func use_or_fallback(node: Node, key, fallback: Callable):
+	var path_from = str(node.get_path())
+	var value = _ctx.find(path_from, _cast_key(key))
+	if value == null:
+		return fallback.call()
+	else:
+		return value
 
 
 func erase(path, ctx_value):
