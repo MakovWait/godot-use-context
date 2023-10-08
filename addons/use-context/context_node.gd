@@ -45,18 +45,6 @@ func add(path, ctx_value):
 	_add(path, ctx_value)
 
 
-func use_service(key):
-	return _ctx.find("/", _cast_key(key))
-
-
-func add_service(service):
-	_add("/", service)
-
-
-func erase_service(service):
-	_erase("/", service)
-
-
 func sanitize():
 	_ctx.sanitize()
 
