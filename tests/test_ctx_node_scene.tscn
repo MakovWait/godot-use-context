@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ce3halg0oo2ma"]
+
+[node name="root" type="Node"]
+
+[node name="a" type="Node" parent="."]
+
+[node name="b" type="Node" parent="."]
+
+[node name="c" type="Node" parent="b"]
