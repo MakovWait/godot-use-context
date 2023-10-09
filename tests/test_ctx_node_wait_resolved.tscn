@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgx2wbrxhico7"]
+
+[sub_resource type="GDScript" id="GDScript_omj0l"]
+script/source = "extends Node2D
+
+
+func _ready():
+	Context.add(self, $\"AA-\")
+	Context.add(self, $\"AB-\")
+	Context.add(self, $\"AC-\")
+"
+
+[sub_resource type="GDScript" id="GDScript_jdu50"]
+script/source = "extends Node
+
+
+var one_node_name
+var one_node_name_call_times = 0
+
+var multi_names
+var multi_names_call_times = 0
+
+
+func _ready():
+	Context.wait_resolved(
+		self, 
+		by_node_name(\"AA-\"),
+		func(node):
+			one_node_name_call_times += 1
+			one_node_name = node.name
+	)
+	
+	Context.wait_resolved(
+		self, 
+		[
+			by_node_name(\"AA-\"),
+			by_node_name(\"AB-\"),
+			by_node_name(\"AC-\"),
+		],
+		func(a, b, c):
+			multi_names_call_times += 1
+			multi_names = [a.name, b.name, c.name]
+	)
+
+
+func by_node_name(node_name):
+	return func(bucket, res):
+		for x in bucket:
+			if x is Node and x.name == node_name:
+				return res.found(x)
+		return res.not_found()
+"
+
+[node name="A--" type="Node2D"]
+script = SubResource("GDScript_omj0l")
+
+[node name="AA-" type="Node" parent="."]
+
+[node name="AAA" type="Node" parent="AA-"]
+script = SubResource("GDScript_jdu50")
+
+[node name="AB-" type="Node" parent="."]
+
+[node name="AC-" type="Node" parent="."]

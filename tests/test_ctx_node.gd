@@ -34,6 +34,22 @@ func test_context_node_scene():
 	assert_str(result.value).is_equal("root_ctx")
 
 
+func test_context_node_wait_resolved():
+	var scene = scene_runner("res://tests/test_ctx_node_wait_resolved.tscn")
+
+	var root = scene.scene()
+	var aaa = scene.find_child("AAA")
+
+	assert_int(Context.active_waiters_len()).is_equal(0)
+	
+	assert_int(aaa.one_node_name_call_times).is_equal(1)
+	assert_int(aaa.multi_names_call_times).is_equal(1)
+
+	assert_str(str(aaa.one_node_name)).is_equal("AA-")
+	assert_array(aaa.multi_names).is_equal(["AA-", "AB-", "AC-"])
+	
+
+
 class CtxValue:
 	var value
 	func _init(v):
