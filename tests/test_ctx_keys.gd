@@ -10,13 +10,32 @@ func test_by_type():
 	ctx.add("/", A.new())
 	ctx.add("/", B.new())
 	
-	var result = ctx.find("/", ContextKeys.by_script(A))
+	var result = ctx.find("/", ContextKeys.by_type(A))
 	assert_object(result).is_instanceof(A)
 	assert_object(result).is_not_instanceof(B)
 	
-	result = ctx.find("/", ContextKeys.by_script(B))
+	result = ctx.find("/", ContextKeys.by_type(B))
 	assert_object(result).is_instanceof(B)
 	assert_object(result).is_not_instanceof(A)
+
+
+func test_by_type_inheritance():
+	var ctx = Context.new()
+	
+	ctx.add("/", Child.new())
+	
+	var result = ctx.find("/", ContextKeys.by_type(Parent))
+	assert_object(result).is_instanceof(Child)
+
+
+func test_by_type_anonymous():
+	var type = preload("res://tests/anonymous_type.gd")
+	var ctx = Context.new()
+	
+	ctx.add("/", type.new())
+	
+	var result = ctx.find("/", ContextKeys.by_type(type))
+	assert_object(result).is_instanceof(type)
 
 
 class A:
@@ -24,4 +43,12 @@ class A:
 
 
 class B:
+	pass
+
+
+class Parent:
+	pass
+
+
+class Child extends Parent:
 	pass

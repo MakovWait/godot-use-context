@@ -93,7 +93,7 @@ func _erase(path, v):
 
 func _cast_key(key):
 	if key is Script:
-		return _ContextKeys.by_script(key)
+		return _ContextKeys.by_type(key)
 	else:
 		return key
 

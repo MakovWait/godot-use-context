@@ -1,6 +1,6 @@
-static func by_script(script):
+static func by_type(type):
 	return func(bucket: Array, opt):
 		for x in bucket:
-			if x is Object and x.get_script() == script:
+			if is_instance_of(x, type):
 				return opt.found(x)
 		return opt.not_found()
