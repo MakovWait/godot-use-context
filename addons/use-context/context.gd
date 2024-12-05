@@ -1,7 +1,8 @@
 var _dict = {}
+var _result_factory_instance := FindResultFactory.new()
 
 
-func add(path: String, ctx_value):
+func add(path: String, ctx_value: Variant):
 	assert(path.begins_with("/"))
 	if not path in _dict:
 		_dict[path] = []
@@ -37,7 +38,7 @@ func find(path_from: String, key: Callable):
 	while true:
 		if has(path_from):
 			var bucket = get(path_from)
-			var opt = key.call(bucket, OptFactory) as Opt
+			var opt = key.call(bucket, _result_factory_instance) as FindResult
 			if opt.has_value():
 				return opt.value()
 		if path_from == "/":
@@ -46,15 +47,15 @@ func find(path_from: String, key: Callable):
 	return null
 
 
-class OptFactory:
-	static func found(value):
-		return Opt.new(true, value)
+class FindResultFactory:
+	static func found(value: Variant) -> FindResult:
+		return FindResult.new(true, value)
 	
-	static func not_found():
-		return Opt.new(false)
+	static func not_found() -> FindResult:
+		return FindResult.new(false)
 
 
-class Opt:
+class FindResult:
 	var _has_value
 	var _value
 	

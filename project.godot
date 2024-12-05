@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="godot-use-context"
-config/features=PackedStringArray("4.0")
+config/features=PackedStringArray("4.3")
 config/icon="res://icon.png"
 
 [autoload]
@@ -20,4 +20,4 @@ Context="*res://addons/use-context/context_node.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/expand-region/plugin.cfg", "res://addons/find-everywhere/plugin.cfg", "res://addons/previous-tab/plugin.cfg", "res://addons/script-tabs/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/use-context/plugin.cfg")
+enabled=PackedStringArray("res://addons/expand-region/plugin.cfg", "res://addons/find-everywhere/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/previous-tab/plugin.cfg", "res://addons/script-tabs/plugin.cfg", "res://addons/use-context/plugin.cfg")

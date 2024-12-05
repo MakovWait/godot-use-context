@@ -2,7 +2,7 @@ extends "res://addons/gd-plug/plug.gd"
 
 
 func _plugging():
-	plug("MikeSchulze/gdUnit4", {"commit": "3439939e03eeae60b69a417ed6a264c00326340d"})
+	plug("MikeSchulze/gdUnit4")
 	
 #   optional editor deps
 	plug("MakovWait/godot-expand-region", {"exclude": ["addons/gdUnit4"]})

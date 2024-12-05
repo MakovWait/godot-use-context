@@ -2,8 +2,8 @@ extends Node
 
 signal updated
 
-const _Context = preload("res://addons/use-context/context.gd")
-const _ContextKeys = preload("res://addons/use-context/context_keys.gd")
+const _Context = preload("./context.gd")
+const _ContextKeys = preload("./context_keys.gd")
 
 var _ctx = _Context.new()
 var _waiters: Array[ResolveWaiters] = []
@@ -22,13 +22,13 @@ func _init():
 	)
 
 
-func use_or_null(node: Node, key, default=null):
+func use_or_null(node: Node, key: Variant, default=null):
 	var path_from = str(node.get_path())
 	var value = _ctx.find(path_from, _cast_key(key))
 	return value
 
 
-func wait_resolved(node: Node, keys, callback: Callable):
+func wait_resolved(node: Node, keys: Variant, callback: Callable):
 	if not keys is Array:
 		keys = [keys]
 	var waiters_list: Array[ResolveWaiter] = []
